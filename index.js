@@ -2,15 +2,25 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const { urlencoded } = require("body-parser");
+const https = require("https");
 
 const app = express();
 
-
+app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({ extended: "true"}));
-app.use(express.static(__dirname + "public"));
+app.use(express.static(__dirname));
 
 app.get("/", function(req, res) {
-    res.sendFile(__dirname + "/index.html");
+    //res.sendFile(__dirname + "/index.html");
+    https.get("https://quizzrapi.herokuapp.com/random",(response) => {
+        console.log(response.statusCode);
+        response.on("data",(data)=>{
+            KBCData=JSON.parse(data);
+            question=KBCData.question;
+            //document.getElementsByClassName("question").innerHTML=<h2>question</h2>
+        });
+    });
+    res.render("index",{question:question});
 })
 
 
