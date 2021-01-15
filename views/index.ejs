@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="public/styles.css">
     <title>KBC</title>
-    <script src="index.js"></script>
+    
 </head>
 <body>
     <img src="public/images/download.jpg">
@@ -40,11 +40,13 @@
         <h2><%= question %></h2>
     </div>
     <div class="row">
-        <button class="col-sm-6 upper btn left color"><h4>A]Lorem ipsum dolor sit amet.</h4></button>
-        <button class="col-sm-6 upper btn color"><h4>B]Lorem ipsum dolor sit amet.</h4></button>
-        <button class="col-sm-6 btn  left color"><h4>C]Lorem ipsum dolor sit amet.</h4></button>
-        <button class="col-sm-6 btn color"><h4>D]Lorem ipsum dolor sit amet.</h4></button>
+        <button class="col-sm-6 upper btn left color" onClick= (e) => {checkAns('a')}</button>><h4>A]<%=a %></h4></button>
+        <button class="col-sm-6 upper btn color"><h4>B]<%=b %></h4></button>
+        <button class="col-sm-6 btn  left color"><h4>C]<%=c %></h4></button>
+        <button class="col-sm-6 btn color"><h4>D]<%=d %></h4></button>
     </div>
-    
+    <script src="index.js">
+       
+    </script>
 </body>
 </html>
