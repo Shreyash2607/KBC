@@ -14,6 +14,7 @@
     
 </head>
 <body>
+    
     <img src="public/images/download.jpg">
     <div class="lifeline">
         <button type="button" class="btn btn-dark btn-lg btn-circle"><i class="fa fa-phone-square" aria-hidden="true"></i></button>
@@ -40,13 +41,33 @@
         <h2><%= question %></h2>
     </div>
     <div class="row">
-        <button class="col-sm-6 upper btn left color" onClick= (e) => {checkAns('a')}</button>><h4>A]<%=a %></h4></button>
-        <button class="col-sm-6 upper btn color"><h4>B]<%=b %></h4></button>
-        <button class="col-sm-6 btn  left color"><h4>C]<%=c %></h4></button>
-        <button class="col-sm-6 btn color"><h4>D]<%=d %></h4></button>
+        <form action='/verify' method="POST">
+            <input name='ans'> <br>
+            <button type='submit' class="col-sm-6 upper-left btn color options"><h4>A]<%=a %></h4></button>
+            <button type='submit'  class="col-sm-6 upper-right btn color options"><h4>B]<%=b %></h4></button>
+            <button type='submit' class="col-sm-6 btn  bottom-left color options"><h4>C]<%=c %></h4></button>
+            <button type='submit' class="col-sm-6 btn bottom-right color options"><h4>D]<%=d %></h4></button>
+        </form>
+        
     </div>
     <script src="index.js">
-       
+    //    document.getElementsByClassName('options').addEventListener('click',getAnotherQuestion);
+    //    function getAnotherQuestion(){
+    //        var xhr = new XMLHttpRequest();
+    //        xhr.open('GET','https://quizzrapi.herokuapp.com/random',true);
+    //        xhr.onload = function(){
+    //            if(this.status==200){
+    //                var newQuestion = JSON.parse(this.responseText);
+    //                console.log(newQuestion);
+    //                 document.getElementsByClassName('question').innerHTML = newQuestion.question;
+    //                 document.getElementsByClassName('upper-left').innerHTML = newQuestion.a;
+    //                 document.getElementsByClassName('upper-right').innerHTML = newQuestion.b;
+    //                 document.getElementsByClassName('lower-left').innerHTML = newQuestion.c;
+    //                 document.getElementsByClassName('lower-right').innerHTML = newQuestion.d;
+    //            }
+    //        }
+    //        xhr.send();
+    //    }
     </script>
 </body>
 </html>

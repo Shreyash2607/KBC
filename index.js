@@ -5,6 +5,7 @@ const mongoose= require("mongoose");
 const { urlencoded } = require("body-parser");
 const https = require("https");
 const { stringify } = require("querystring");
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 const app = express();
 
@@ -25,25 +26,51 @@ const userSchema = new Schema({
 
 const user=mongoose.model("user",userSchema);
 
-var KBCData;
+var newQuestion;
+
+function getNewQuestion(callback){
+    //     var xhr = new XMLHttpRequest();
+    // xhr.open('GET','https://quizzrapi.herokuapp.com/random',true);
+    // xhr.onload = function(){
+    //     if(this.status==200){
+    //         { newQuestion = JSON.parse(this.responseText);
+    //          //console.log(newQuestion);
+    //         return newQuestion;}
+    //     }
+    // }
+    // xhr.send();
+    request("https://quizzrapi.herokuapp.com/random", function(error, response, body) {
+      var result = JSON.parse(body);
+      return callback(null, result);
+  });
+}
+
 app.get("/", function(req, res) {
    
   res.render("form");
 });
 
-app.get('/kbc',(req,res) => {
-    res.render("index",{question:KBCData.question,a:KBCData.a,b:KBCData.b,c:KBCData.c,d:KBCData.d,ans:KBCData.answer});
+app.get('/kbc', (req,res) => {
+    // console.log( getNewQuestion());
+    getNewQuestion((err,newQuestion) => {
+
+     console.log(newQuestion);
+     res.render("index",{question:newQuestion.question,a:newQuestion.a,b:newQuestion.b,c:newQuestion.c,d:newQuestion.d,ans:newQuestion.answer});
+    });
 })
 
-https.get("https://quizzrapi.herokuapp.com/random",(response) => {
-    console.log(response.statusCode);
-    response.on("data",(data)=>{
-        KBCData=JSON.parse(data);
+
+
+
+// https.get("https://quizzrapi.herokuapp.com/random",(response) => {
+//     console.log(response.statusCode);
+//     response.on("data",(data)=>{
+//         KBCData=JSON.parse(data);
         
-        console.log(KBCData);
+//         console.log(KBCData);
         
-    });
-});
+//     });
+// });
 
 app.post("/register",function(req,res) {
     let Email = req.body.email;
@@ -56,7 +83,32 @@ app.post("/register",function(req,res) {
     res.redirect("/kbc");
 });
 
+app.post("/verify",(req,res) => {
+    if(req.body.ans===newQuestion.answer)
+    {
+        res.redirect('/kbc');
+    }
+})
+
 
 app.listen(4000, function() {
     console.log("This is port 4000");
 });
+
+// document.getElementsByClassName('options').addEventListener('click',getAnotherQuestion);
+// function getAnotherQuestion(){
+//     var xhr = new XMLHttpRequest();
+//     xhr.open('GET','https://quizzrapi.herokuapp.com/random',true);
+//     xhr.onload = function(){
+//         if(this.status==200){
+//             var newQuestion = JSON.parse(this.responseText);
+//             console.log(newQuestion);
+//              document.getElementsByClassName('question').innerHTML = newQuestion.question;
+//              document.getElementsByClassName('upper-left').innerHTML = newQuestion.a;
+//              document.getElementsByClassName('upper-right').innerHTML = newQuestion.b;
+//              document.getElementsByClassName('lower-left').innerHTML = newQuestion.c;
+//              document.getElementsByClassName('lower-right').innerHTML = newQuestion.d;
+//         }
+//     }
+//     xhr.send();
+// }
