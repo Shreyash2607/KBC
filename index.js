@@ -6,12 +6,13 @@ const { urlencoded } = require("body-parser");
 const https = require("https");
 const { stringify } = require("querystring");
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const axios = require('axios');
 
 const app = express();
 
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({ extended: "true"}));
-app.use(express.static(__dirname));
+app.use(express.static(__dirname + '/public'));
 mongoose.connect("mongodb://localhost:27017/userDB",{useNewUrlParser:true,useUnifiedTopology:true}).then(() => {console.log("connected to DB")});
 const Schema=mongoose.Schema;
 
@@ -26,7 +27,6 @@ const userSchema = new Schema({
 
 const user=mongoose.model("user",userSchema);
 
-var newQuestion;
 
 function getNewQuestion(callback){
     //     var xhr = new XMLHttpRequest();
@@ -51,12 +51,39 @@ app.get("/", function(req, res) {
 });
 
 app.get('/kbc', (req,res) => {
-    // console.log( getNewQuestion());
-    getNewQuestion((err,newQuestion) => {
+    var id = req.query.id;
+    var ans= req.query.ans;
+    console.log(req.query);
+    axios.get('https://quizzrapi.herokuapp.com/random')
+    .then(function(response){
+       var newQuestion = response.data;
+       console.log(response.data);
+       if(!parseInt(id))
+       {
+           console.log(id);
+        res.render("index",{question:newQuestion.question,a:newQuestion.a,b:newQuestion.b,c:newQuestion.c,d:newQuestion.d,ans:newQuestion.answer});
+       }
+       else
+       {
+           if(newQuestion.answer==ans)
+           {
+               console.log(ans,id);
+           }
+       }
+    })
+    
+    // if(id)
+    // {
+    //     if(req.body.ans==newQuestion.answer)
+    //     {
 
-     console.log(newQuestion);
-     res.render("index",{question:newQuestion.question,a:newQuestion.a,b:newQuestion.b,c:newQuestion.c,d:newQuestion.d,ans:newQuestion.answer});
-    });
+    //     }
+    // }
+    // getNewQuestion((err,newQuestion) => {
+
+    //  console.log(newQuestion);
+    //  res.render("index",{question:newQuestion.question,a:newQuestion.a,b:newQuestion.b,c:newQuestion.c,d:newQuestion.d,ans:newQuestion.answer});
+    // });
 })
 
 
@@ -80,14 +107,13 @@ app.post("/register",function(req,res) {
         name:req.body.name
     });
     User.save()
-    res.redirect("/kbc");
+    res.redirect("/kbc?id=0");
 });
 
 app.post("/verify",(req,res) => {
-    if(req.body.ans===newQuestion.answer)
-    {
-        res.redirect('/kbc');
-    }
+    
+    res.redirect('/kbc?id=1&ans=' + req.body.ans);
+    
 })
 
 
