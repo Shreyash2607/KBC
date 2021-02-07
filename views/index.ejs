@@ -9,7 +9,7 @@
     <!--icons font awsome-->
     <script src="https://use.fontawesome.com/8490d8a753.js"></script>
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../public/styles.css">
     <title>KBC</title>
     
 </head>
@@ -17,8 +17,8 @@
     
     <img src="../public/images/download.jpg">
     <div class="lifeline">
-        <button type="button" class="btn btn-dark btn-lg btn-circle"><i class="fa fa-phone-square" aria-hidden="true"></i></button>
-        <button type="button" class="btn btn-dark btn-lg btn-circle">50-50</button>
+        <button type="button" class="btn btn-dark btn-lg btn-circle" onclick="call()"><i class="fa fa-phone-square" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-dark btn-lg btn-circle" onclick="half()">50-50</button>
         <button type="button" class="btn btn-dark btn-lg btn-circle"><i class="fa fa-users" aria-hidden="true"></i></button>
         <button type="button" class="btn btn-dark btn-lg btn-circle"><i class="fa fa-exchange" aria-hidden="true"></i></button>
     </div>
@@ -42,32 +42,15 @@
     </div>
     <div class="row">
         <form action='/verify' method="POST">
-            <input name='ans'> <br>
-            <button type='submit' class="col-sm-6 upper-left btn color options"><h4>A]<%=a %></h4></button>
-            <button type='submit'  class="col-sm-6 upper-right btn color options"><h4>B]<%=b %></h4></button>
-            <button type='submit' class="col-sm-6 btn  bottom-left color options"><h4>C]<%=c %></h4></button>
-            <button type='submit' class="col-sm-6 btn bottom-right color options"><h4>D]<%=d %></h4></button>
+            <button class="col-md-6 upper btn left color a" name="button" value='a'><h4>a] <%= a %></h4></button>
+            <button class="col-md-6 upper btn color b" name="button" value='b'><h4>b] <%= b %></h4></button>
+            <button class="col-md-6 btn  left color c" name="button" value='c'><h4>c] <%= c %></h4></button>
+            <button class="col-md-6 btn color d" name="button" value='d'><h4>d] <%= d %></h4></button>
         </form>
         
     </div>
-    <script src="index.js">
-    //    document.getElementsByClassName('options').addEventListener('click',getAnotherQuestion);
-    //    function getAnotherQuestion(){
-    //        var xhr = new XMLHttpRequest();
-    //        xhr.open('GET','https://quizzrapi.herokuapp.com/random',true);
-    //        xhr.onload = function(){
-    //            if(this.status==200){
-    //                var newQuestion = JSON.parse(this.responseText);
-    //                console.log(newQuestion);
-    //                 document.getElementsByClassName('question').innerHTML = newQuestion.question;
-    //                 document.getElementsByClassName('upper-left').innerHTML = newQuestion.a;
-    //                 document.getElementsByClassName('upper-right').innerHTML = newQuestion.b;
-    //                 document.getElementsByClassName('lower-left').innerHTML = newQuestion.c;
-    //                 document.getElementsByClassName('lower-right').innerHTML = newQuestion.d;
-    //            }
-    //        }
-    //        xhr.send();
-    //    }
+    <script src="../test.js">
+        
     </script>
 </body>
 </html>

@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<title>START</title>
+	</head>
+	<body style="background-image: url('images/quiz-image.jpg');background-size: 100%; ">
+		<h1 style="margin-left: 700px; font-size: 40px">WELCOME!!!!</h1>
+		<ul style="margin-left: 550px;font-size: 25px;color: brown" type="disc">
+			<li>There are 10 levels means 10 question in this game.</li>
+			<li>There are four life lines in the game.</li>
+			<ol>
+				<li>In this you can call any expert and ask for the correct answer.</li>
+				<li>This is a audience pol lifeline in which audience will give the answer by voting.</li>
+				<li>In this life line we will disable two wrong answers.</li>
+				<li>In this you can swap the question.</li>
+			</ol>
+			<li><b>Note* :</b>It is not mandatory answer from lifelines will always be correct.</li>
+			<li>If you give any incorrect answer, the game will over.</li> 
+		</ul>
+        <h1 style="margin-left: 700px; font-size: 40px">ALL THE BEST!!!</h1>
+        <!-- <button style="margin-left: 770px;font-size: 35px;background-color:brown;color: white" name="start" onclick={() => {route()}}</button>}> Start </button> -->
+		<form method="post">
+		<button formaction="/kbc" style="margin-left: 770px;font-size: 35px;background-color:brown;color: white" name="start">START</button>
+		</form>
+    </body>
+    <script>
+        route = () => {
+            window.location = '/kbc?id=0';
+        };
+    </script>
+</html>
